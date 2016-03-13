@@ -17,12 +17,13 @@ namespace Version_1_C
 
         private clsArtistList _ArtistList;
         private clsWorksList _WorksList;
-        public byte _SortOrder; // 0 = Name, 1 = Date
+        private byte sortOrder; // 0 = Name, 1 = Date
+        private clsArtist _Artist;
 
-        private void updateDisplay()
+        private void UpdateDisplay()
         {
             txtName.Enabled = txtName.Text == "";
-            if (_SortOrder == 0)
+            if (sortOrder == 0)
             {
                 _WorksList.SortByName();
                 rbByName.Checked = true;
@@ -38,42 +39,31 @@ namespace Version_1_C
             lblTotal.Text = Convert.ToString(_WorksList.GetTotalValue());
         }
 
-        public void SetDetails(string prName, string prSpeciality, string prPhone,
-                               clsWorksList prWorksList, clsArtistList prArtistList)
+        public void SetDetails(clsArtist prArtist)
         {
-            txtName.Text = prName;
-            txtSpeciality.Text = prSpeciality;
-            txtPhone.Text = prPhone;
-            _ArtistList = prArtistList;
-            _WorksList = prWorksList;
-            _SortOrder = _WorksList.SortOrder;
-            updateDisplay();
+            _Artist = prArtist;
+            updateForm();
+            UpdateDisplay();
+            ShowDialog();
         }
-
-        public void GetDetails(ref string prName, ref string prSpeciality, ref string prPhone)
-        {
-            prName = txtName.Text;
-            prSpeciality = txtSpeciality.Text;
-            prPhone = txtPhone.Text;
-            _WorksList.SortOrder = _SortOrder;
-        }
-
+                
         private void btnDelete_Click(object sender, EventArgs e)
         {
             _WorksList.DeleteWork(lstWorks.SelectedIndex);
-            updateDisplay();
+            UpdateDisplay();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             _WorksList.AddWork();
-            updateDisplay();
+            UpdateDisplay();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             if (isValid())
             {
+                pushData();
                 DialogResult = DialogResult.OK;
             }
         }
@@ -98,15 +88,30 @@ namespace Version_1_C
             if (lcIndex >= 0)
             {
                 _WorksList.EditWork(lcIndex);
-                updateDisplay();
+                UpdateDisplay();
             }
         }
 
         private void rbByDate_CheckedChanged(object sender, EventArgs e)
         {
-            _SortOrder = Convert.ToByte(rbByDate.Checked);
-            updateDisplay();
+            sortOrder = Convert.ToByte(rbByDate.Checked);
+            UpdateDisplay();
         }
 
+        private void updateForm()
+        {
+            txtName.Text = _Artist.Name;
+            txtSpeciality.Text = _Artist.Speciality;
+            txtPhone.Text = _Artist.Phone;
+            _ArtistList = _Artist.ArtistList;
+            _WorksList = _Artist.WorksList;         
+        }
+
+        private void pushData()
+        {
+            _Artist.Name = txtName.Text;
+            _Artist.Speciality = txtSpeciality.Text;
+            _Artist.Phone = txtPhone.Text;
+        }
     }
 }

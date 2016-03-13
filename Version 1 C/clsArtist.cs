@@ -2,45 +2,126 @@ using System;
 
 namespace Version_1_C
 {
-    [Serializable()] 
+    [Serializable()]
     public class clsArtist
     {
         private string name;
         private string speciality;
         private string phone;
-        
+
         private decimal _TotalValue;
 
         private clsWorksList _WorksList;
         private clsArtistList _ArtistList;
-        
+
         private static frmArtist artistDialog = new frmArtist();
-        
-        public clsArtist(clsArtistList prArtistList)
+        private byte sortOrder;
+
+        public string Name
         {
-            _WorksList = new clsWorksList();
-            _ArtistList = prArtistList;
-            EditDetails();
-        }
-        
-        public void EditDetails()
-        {
-            artistDialog.SetDetails(name, speciality, phone, _WorksList, _ArtistList);
-            if (artistDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            get
             {
-                artistDialog.GetDetails(ref name, ref speciality, ref phone);
-                _TotalValue = _WorksList.GetTotalValue();
+                return name;
+            }
+
+            set
+            {
+                name = value;
             }
         }
 
-        public string GetKey()
+        public string Speciality
         {
-            return name;
+            get
+            {
+                return speciality;
+            }
+
+            set
+            {
+                speciality = value;
+            }
         }
 
-        public decimal GetWorksValue()
+        public string Phone
         {
-            return _TotalValue;
+            get
+            {
+                return phone;
+            }
+
+            set
+            {
+                phone = value;
+            }
         }
+
+        public decimal TotalValue
+        {
+            get
+            {
+                return _TotalValue;
+            }
+
+            set
+            {
+                _TotalValue = value;
+            }
+        }
+
+        public clsWorksList WorksList
+        {
+            get
+            {
+                return _WorksList;
+            }
+
+            set
+            {
+                _WorksList = value;
+            }
+        }
+
+        public clsArtistList ArtistList
+        {
+            get
+            {
+                return _ArtistList;
+            }
+
+            set
+            {
+                _ArtistList = value;
+            }
+        }
+
+        public byte SortOrder
+        {
+            get
+            {
+                return sortOrder;
+            }
+
+            set
+            {
+                sortOrder = value;
+            }
+        }
+
+        public clsArtist(clsArtistList prArtistList)
+        {
+            WorksList = new clsWorksList();
+            ArtistList = prArtistList;
+            EditDetails();
+        }
+
+        public void EditDetails()
+        {
+            artistDialog.SetDetails(this);
+            if (artistDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                TotalValue = WorksList.GetTotalValue();
+            }
+        }        
     }
 }
