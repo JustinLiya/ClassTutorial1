@@ -15,7 +15,7 @@ namespace Version_1_C
         private clsArtistList _ArtistList;
 
         private static frmArtist artistDialog = new frmArtist();
-        private byte sortOrder;
+        //private byte sortOrder;
 
         public string Name
         {
@@ -94,7 +94,7 @@ namespace Version_1_C
                 _ArtistList = value;
             }
         }
-
+        /*
         public byte SortOrder
         {
             get
@@ -107,7 +107,7 @@ namespace Version_1_C
                 sortOrder = value;
             }
         }
-
+        */
         public clsArtist(clsArtistList prArtistList)
         {
             WorksList = new clsWorksList();
@@ -122,6 +122,11 @@ namespace Version_1_C
             {
                 TotalValue = WorksList.GetTotalValue();
             }
-        }        
+        }
+
+        public bool IsDuplicate(string prArtistName)
+        {
+            return _ArtistList.ContainsKey(prArtistName);
+        }
     }
 }
