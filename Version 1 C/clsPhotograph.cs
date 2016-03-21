@@ -10,19 +10,57 @@ namespace Version_1_C
         private float _Height;
         private string _Type;
 
-        private static frmPhotograph photographDialog;
+        private static frmPhotograph _photographDialog;
+
+        public float Width
+        {
+            get
+            {
+                return _Width;
+            }
+
+            set
+            {
+                _Width = value;
+            }
+        }
+
+        public float Height
+        {
+            get
+            {
+                return _Height;
+            }
+
+            set
+            {
+                _Height = value;
+            }
+        }
+
+        public string Type
+        {
+            get
+            {
+                return _Type;
+            }
+
+            set
+            {
+                _Type = value;
+            }
+        }
 
         public override void EditDetails()
         {
-            if (photographDialog == null)
+            
+            if (_photographDialog == null)
             {
-                photographDialog = new frmPhotograph();
+                _photographDialog = new frmPhotograph();
             }
-            photographDialog.SetDetails(_Name, _Date, _Value, _Width, _Height, _Type);
-            if (photographDialog.ShowDialog() == DialogResult.OK)
-            {
-                photographDialog.GetDetails(ref _Name, ref _Date, ref _Value, ref _Width, ref _Height, ref _Type);
-            }
+
+            _photographDialog.SetDetails(this);
+                        
         }
     }
 }
