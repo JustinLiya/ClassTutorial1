@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace Version_1_C
 {
@@ -14,24 +13,15 @@ namespace Version_1_C
             if (lcArtist != null)
                 lcArtist.EditDetails();
             else
-                MessageBox.Show("Sorry no artist by this name");
+                throw new Exception("Sorry no artist by this name");
         }
        
         public void NewArtist()
         {
             clsArtist lcArtist = new clsArtist(this);
-            try
-            {
-                if (lcArtist.Name != "")
-                {
-                    Add(lcArtist.Name, lcArtist);
-                    MessageBox.Show("Artist added!");
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Duplicate Key!");
-            }
+            if (lcArtist.Name != "")
+                Add(lcArtist.Name, lcArtist);
+            
         }
         
         public decimal GetTotalValue()
@@ -57,7 +47,7 @@ namespace Version_1_C
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "File Save Error");
+                throw new Exception(e.Message+", File Save Error");
             }
         }
 
@@ -77,7 +67,7 @@ namespace Version_1_C
             catch (Exception e)
             {
                 lcArtistList = new clsArtistList();
-                MessageBox.Show(e.Message, "File Retrieve Error");
+                throw new Exception(e.Message+", File Retrieve Error");
             }
 
             return lcArtistList;

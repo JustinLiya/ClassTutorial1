@@ -32,7 +32,16 @@ namespace Version_1_C
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            _ArtistList.NewArtist();
+            try
+            {
+                _ArtistList.NewArtist();
+                throw new Exception("Artist added!");
+            }
+            catch(Exception ex)
+            {            
+                MessageBox.Show(ex.Message);
+            }
+
             updateDisplay();
         }
 
@@ -43,14 +52,26 @@ namespace Version_1_C
             lcKey = Convert.ToString(lstArtists.SelectedItem);
             if (lcKey != null)
             {
-                _ArtistList.EditArtist(lcKey);
+                try {
+                    _ArtistList.EditArtist(lcKey);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
                 updateDisplay();
             }
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
         {
-            _ArtistList.Save();
+            try {
+                _ArtistList.Save();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             Close();
         }
 
@@ -69,7 +90,14 @@ namespace Version_1_C
         
         private void frmMain_Load(object sender, EventArgs e)
         {
-            _ArtistList = clsArtistList.Retrieve();
+            try
+            {
+                _ArtistList = clsArtistList.Retrieve();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
             updateDisplay();
         }
     }

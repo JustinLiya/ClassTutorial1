@@ -1,9 +1,4 @@
 using System;
-//using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Version_1_C
@@ -47,8 +42,14 @@ namespace Version_1_C
         }
                 
         private void btnDelete_Click(object sender, EventArgs e)
-        {
-            _WorksList.DeleteWork(lstWorks.SelectedIndex);
+        {           
+            if (lstWorks.SelectedIndex >= 0 && lstWorks.SelectedIndex < _WorksList.Count)
+            {
+                if (MessageBox.Show("Are you sure?", "Deleting work", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _WorksList.RemoveAt(lstWorks.SelectedIndex);
+                }
+            }
             UpdateDisplay();
         }
 
@@ -65,6 +66,8 @@ namespace Version_1_C
                 pushData();
                 DialogResult = DialogResult.OK;
             }
+            else
+                throw new Exception("Artist with that name already exists!");
         }
 
         public virtual Boolean isValid()
@@ -73,7 +76,7 @@ namespace Version_1_C
               
               if(_Artist.IsDuplicate(txtName.Text))
                 {
-                    MessageBox.Show("Artist with that name already exists!");
+                                      
                     return false;
                 }
                 else
@@ -87,7 +90,16 @@ namespace Version_1_C
             int lcIndex = lstWorks.SelectedIndex;
             if (lcIndex >= 0)
             {
-                _WorksList.EditWork(lcIndex);
+               
+                if (lcIndex >= 0 && lcIndex < _WorksList.Count)
+                {
+                    clsWork lcWork = (clsWork)_WorksList[lcIndex];
+                    lcWork.EditDetails();
+                }
+                else
+                {
+                    MessageBox.Show("Sorry no work selected #" + Convert.ToString(lcIndex));
+                }
                 UpdateDisplay();
             }
         }

@@ -15,8 +15,7 @@ namespace Version_1_C
         private clsArtistList _ArtistList;
 
         private static frmArtist artistDialog = new frmArtist();
-        //private byte sortOrder;
-
+       
         public string Name
         {
             get
@@ -94,20 +93,7 @@ namespace Version_1_C
                 _ArtistList = value;
             }
         }
-        /*
-        public byte SortOrder
-        {
-            get
-            {
-                return sortOrder;
-            }
-
-            set
-            {
-                sortOrder = value;
-            }
-        }
-        */
+        
         public clsArtist(clsArtistList prArtistList)
         {
             WorksList = new clsWorksList();
