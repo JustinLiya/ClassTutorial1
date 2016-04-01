@@ -6,7 +6,7 @@ namespace Version_1_C
     [Serializable()] 
     public class clsArtistList : SortedList<string, clsArtist>
     {
-        private const string _FileName = "gallery.xml";
+        private const string _FileName = "gallery11.xml";
         public void EditArtist(string prKey)
         {
             clsArtist lcArtist=this[prKey];
@@ -36,9 +36,10 @@ namespace Version_1_C
 
         public void Save()
         {
+            System.IO.FileStream lcFileStream = null;
             try
             {
-                System.IO.FileStream lcFileStream = new System.IO.FileStream(_FileName, System.IO.FileMode.Create);
+                 lcFileStream = new System.IO.FileStream(_FileName, System.IO.FileMode.Create);
                  System.Runtime.Serialization.Formatters.Binary.BinaryFormatter lcFormatter =
                      new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
@@ -47,6 +48,8 @@ namespace Version_1_C
             }
             catch (Exception e)
             {
+                if (lcFileStream!=null)
+                    lcFileStream.Close();
                 throw new Exception(e.Message+", File Save Error");
             }
         }
@@ -57,17 +60,17 @@ namespace Version_1_C
             try
             {
                 System.IO.FileStream lcFileStream = new System.IO.FileStream(_FileName, System.IO.FileMode.Open);
-                 System.Runtime.Serialization.Formatters.Binary.BinaryFormatter lcFormatter =
-                     new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                System.Runtime.Serialization.Formatters.Binary.BinaryFormatter lcFormatter =
+                    new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
 
-                  lcArtistList = (clsArtistList)lcFormatter.Deserialize(lcFileStream);                
-                lcFileStream.Close();                
+                lcArtistList = (clsArtistList)lcFormatter.Deserialize(lcFileStream);
+                lcFileStream.Close();
             }
 
             catch (Exception e)
             {
                 lcArtistList = new clsArtistList();
-                throw new Exception(e.Message+", File Retrieve Error");
+                throw new Exception(e.Message + ", File Retrieve Error");
             }
 
             return lcArtistList;
