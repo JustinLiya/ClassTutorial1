@@ -8,14 +8,28 @@ using System.Windows.Forms;
 
 namespace Version_1_C
 {
-    public partial class frmMain : Form
+    public sealed partial class frmMain : Form
     {
+        private static readonly frmMain instance = new frmMain();
         /// <summary>
         /// Matthias Otto, NMIT, 2010-2016
         /// </summary>
-        public frmMain()
+        private frmMain()
         {
             InitializeComponent();
+        }
+
+        static frmMain()
+        {
+
+        }
+
+        public static frmMain Instance
+        {
+            get
+            {
+                return instance;
+            }
         }
 
         private clsArtistList _ArtistList = new clsArtistList();
