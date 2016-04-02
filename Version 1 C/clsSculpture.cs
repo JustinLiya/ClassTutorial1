@@ -7,9 +7,7 @@ namespace Version_1_C
     {
         private float _Weight;
         private string _Material;
-
-        private static frmSculpture _sculptureDialog;
-
+               
         public float Weight
         {
             get
@@ -38,13 +36,7 @@ namespace Version_1_C
 
         public override void EditDetails()
         {
-            
-            if (_sculptureDialog == null)
-            {
-                _sculptureDialog = new frmSculpture();
-            }
-            _sculptureDialog.SetDetails(this);
-        
+            frmSculpture.Instance.SetDetails(this);
         }
     }
 }

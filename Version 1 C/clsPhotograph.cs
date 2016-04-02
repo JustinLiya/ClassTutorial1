@@ -8,9 +8,7 @@ namespace Version_1_C
         private float _Width;
         private float _Height;
         private string _Type;
-
-        private static frmPhotograph _photographDialog;
-
+                
         public float Width
         {
             get
@@ -52,14 +50,7 @@ namespace Version_1_C
 
         public override void EditDetails()
         {
-            
-            if (_photographDialog == null)
-            {
-                _photographDialog = new frmPhotograph();
-            }
-
-            _photographDialog.SetDetails(this);
-                        
+            frmPhotograph.Instance.SetDetails(this);                        
         }
     }
 }

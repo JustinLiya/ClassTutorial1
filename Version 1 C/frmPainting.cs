@@ -8,12 +8,26 @@ using System.Windows.Forms;
 
 namespace Version_1_C
 {
-    public partial class frmPainting : Version_1_C.frmWork
+    public sealed partial class frmPainting : Version_1_C.frmWork
     {
+        private static readonly frmPainting instance = new frmPainting();
 
-        public frmPainting()
+        static frmPainting()
+        {
+
+        }
+
+        private frmPainting()
         {
             InitializeComponent();
+        }
+
+        public static frmPainting Instance
+        {
+            get
+            {
+                return instance;
+            }
         }
        
         protected override void updateForm() {

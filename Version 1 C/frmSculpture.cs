@@ -8,12 +8,25 @@ using System.Windows.Forms;
 
 namespace Version_1_C
 {
-    public partial class frmSculpture : Version_1_C.frmWork
+    public sealed partial class frmSculpture : Version_1_C.frmWork
     {
-        
-        public frmSculpture()
+        private static readonly frmSculpture instance = new frmSculpture();
+        private frmSculpture()
         {
             InitializeComponent();
+        }
+
+        static frmSculpture()
+        {
+
+        }
+
+        public static frmSculpture Instance
+        {
+            get
+            {
+                return instance;
+            }
         }
                 
         protected override void updateForm()

@@ -8,12 +8,26 @@ using System.Windows.Forms;
 
 namespace Version_1_C
 {
-    public partial class frmPhotograph : Version_1_C.frmWork
+    public sealed partial class frmPhotograph : Version_1_C.frmWork
     {
+        private static readonly frmPhotograph instance= new frmPhotograph();
 
-        public frmPhotograph()
+        private frmPhotograph()
         {
             InitializeComponent();
+        }
+
+        static frmPhotograph()
+        {
+
+        }
+
+        public static frmPhotograph Instance
+        {
+            get
+            {
+                return instance;
+            }
         }
         
         protected override void updateForm()

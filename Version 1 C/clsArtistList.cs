@@ -6,7 +6,7 @@ namespace Version_1_C
     [Serializable()] 
     public class clsArtistList : SortedList<string, clsArtist>
     {
-        private const string _FileName = "gallery11.xml";
+        private const string _FileName = "gallery.xml";
         public void EditArtist(string prKey)
         {
             clsArtist lcArtist=this[prKey];

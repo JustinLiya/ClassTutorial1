@@ -104,10 +104,7 @@ namespace Version_1_C
         public void EditDetails()
         {
             artistDialog.SetDetails(this);
-           // if (artistDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                TotalValue = WorksList.GetTotalValue();
-            }
+            TotalValue = WorksList.GetTotalValue();
         }
 
         public bool IsDuplicate(string prArtistName)
